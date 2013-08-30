@@ -59,7 +59,7 @@ var responses = {
 		'I started counting them but I got bored'
 		],
 	randomResponse: function() {
-		return 'Oh dear';
+		return 'Go home';
 	}
 }
 
@@ -77,7 +77,7 @@ function setCamelWorth() {
 }
 
 function setResponse() {
-	var response = 'Go home';
+	var response = responses.randomResponse();
 	$('h2').html(response);
 }
 
