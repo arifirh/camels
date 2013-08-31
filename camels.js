@@ -31,6 +31,7 @@ function keepPickingValuesUntilString(input) {
 
 function someNumber(size) {
 	var sigFigs;
+	var number;
 	switch(size) {
 		case 'verySmall':
 			if (coinToss()) {
@@ -39,10 +40,15 @@ function someNumber(size) {
 			else {
 				sigFigs = 2;
 			}
-			return (numberBetween(0.1, 0.9)).toFixed(sigFigs);
+			number = (numberBetween(0.1, 0.9)).toFixed(sigFigs);
+		case 'small':
+			number = Math.floor(numberBetween(1,9));
+		case 'large':
+			number = Math.floor(numberBetween(99,99999));
 		default:
-			return '3';
+			number = '3';
 	}
+	return number.toString();
 }
 
 var camelWorths = {
