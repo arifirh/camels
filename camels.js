@@ -1,3 +1,5 @@
+var camelWorthType;
+
 function coinToss() {
 	return Math.floor(Math.random() * 2) === 1;
 }
@@ -9,15 +11,21 @@ function numberBetween(min, max) {
 function pickKeyFromObject(object) {
 	keys = Object.keys(object);
 	index = Math.floor(numberBetween(0, keys.length));
+	return keys[index];
+}
+
+function pickValueFromObject(object) {
+	keys = Object.keys(object);
+	index = Math.floor(numberBetween(0, keys.length));
 	return object[keys[index]];
 }
 
-function keepPickingKeysUntilString(input) {
+function keepPickingValuesUntilString(input) {
 	if (typeof input === 'string') {
 		return input;
 	}
 	else { 
-		return keepPickingKeysUntilString(pickKeyFromObject(input));
+		return keepPickingValuesUntilString(pickValueFromObject(input));
 	}
 }
 
@@ -51,7 +59,8 @@ var camelWorths = {
 		'anAwfulLot': 'such an awful lot of',
 	},
 	randomCamelWorth: function() {
-		return keepPickingKeysUntilString(camelWorths['typesOfWorth']);
+		camelWorthType = pickKeyFromObject(camelWorths['typesOfWorth']);
+		return keepPickingValuesUntilString(camelWorths['typesOfWorth'][camelWorthType]);
 	}
 }
 
@@ -60,8 +69,8 @@ var responses = {
 		'none': 'Go home',
 		'barelyAny': [
 			'Well, nevermind',
-			'I guess that\'s not too bad',
-			'You still have your health',
+			'But there are more important things than being worth lots of camels, I guess',
+			'But you still have your health',
 			'It\'s really nothing to be ashamed of'
 			],
 		'some': [
@@ -83,7 +92,7 @@ var responses = {
 			],
 	},
 	randomResponse: function() {
-		return keepPickingKeysUntilString(responses['typesOfResponse']);
+		return keepPickingValuesUntilString(responses['typesOfResponse'][camelWorthType]);
 	}
 }
 
@@ -98,7 +107,7 @@ var buttons = {
 		'You are talking out of your hat'
 		],
 	randomButton: function() {
-		return pickKeyFromObject(buttons['buttonText']);
+		return pickValueFromObject(buttons['buttonText']);
 	}
 }
 
