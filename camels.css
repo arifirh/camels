@@ -4,4 +4,6 @@ body {
 }
 button {
 	margin-top: 20px;
+	width: 170px;
+	padding: 10px;
 }
