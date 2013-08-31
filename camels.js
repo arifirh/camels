@@ -4,6 +4,9 @@ function coinToss() {
 
 function someNumber(size) {
 	var sigFigs;
+	var randomBetweenRange = function(min, max) {
+		return Math.random() * (max - min) + min;
+	}
 	switch(size) {
 		case 'verySmall':
 			if (coinToss()) {
@@ -12,7 +15,7 @@ function someNumber(size) {
 			else {
 				sigFigs = 2;
 			}
-			return (Math.random() * (0.9 - 0.1) + 0.1).toFixed(sigFigs);
+			return (randomBetweenRange(0.1, 0.9)).toFixed(sigFigs);
 		default:
 			return '3';
 	}
