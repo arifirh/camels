@@ -32,6 +32,9 @@ function keepPickingValuesUntilString(input) {
 function someNumber(size) {
 	var sigFigs;
 	var number;
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
 	switch(size) {
 		case 'verySmall':
 			if (coinToss()) {
@@ -41,12 +44,16 @@ function someNumber(size) {
 				sigFigs = 2;
 			}
 			number = (numberBetween(0.1, 0.9)).toFixed(sigFigs);
+			break;
 		case 'small':
 			number = Math.floor(numberBetween(1,9));
+			break;
 		case 'large':
-			number = Math.floor(numberBetween(99,99999));
+			number = numberWithCommas(Math.floor(numberBetween(99,99999)));
+			break;
 		default:
 			number = '3';
+			break;
 	}
 	return number.toString();
 }
@@ -84,6 +91,7 @@ var responses = {
 			'Well done',
 			'Good for you'
 			],
+		'one': 'What an achievement',
 		'lots': [
 			'Gosh',
 			'Heavens',
@@ -94,7 +102,7 @@ var responses = {
 		'anAwfulLot': [
 			'I\'m actually slightly embarrased to say',
 			'I couldn\'t possibly tell you, you\'d get a big head',
-			'I started counting them but I got bored'
+			'I started counting but I got a bit bored'
 			],
 	},
 	randomResponse: function() {
