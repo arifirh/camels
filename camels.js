@@ -63,12 +63,18 @@ var responses = {
 	}
 }
 
-var buttons = [
-	'Rubbish',
-	'Utter bollocks',
-	'Sod off, no I\'m not',
-	'I am worth at least twice that many camels'
-]
+var buttons = {
+	buttonText: [
+		'Rubbish',
+		'What nonsense',
+		'Utter bollocks',
+		'Sod off, no I\'m not',
+		'I am worth at least twice that many camels'
+			],
+	randomButton: function() {
+		return 'Rubbish';
+	}
+}
 
 function setCamelWorth() {
 	var camelWorth = camelWorths.randomCamelWorth();
@@ -81,7 +87,13 @@ function setResponse() {
 	$('h2').html(response);
 }
 
+function setButton() {
+	var button = buttons.randomButton();
+	$('button').html(button);
+}
+
 $('document').ready(function() {
 	setCamelWorth();
 	setResponse();
+	setButton();
 });
