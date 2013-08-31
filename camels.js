@@ -1,22 +1,14 @@
 var camelWorthType;
 
-function coinToss() {
-	return Math.floor(Math.random() * 2) === 1;
-}
-
-function numberBetween(min, max) {
-	return Math.random() * (max - min) + min;
-}
-
 function pickKeyFromObject(object) {
 	keys = Object.keys(object);
-	index = Math.floor(numberBetween(0, keys.length));
+	index = Math.floor(numbers.numberBetween(0, keys.length));
 	return keys[index];
 }
 
 function pickValueFromObject(object) {
 	keys = Object.keys(object);
-	index = Math.floor(numberBetween(0, keys.length));
+	index = Math.floor(numbers.numberBetween(0, keys.length));
 	return object[keys[index]];
 }
 
@@ -29,55 +21,64 @@ function keepPickingValuesUntilString(input) {
 	}
 }
 
-function someNumber(size) {
-	var sigFigs;
-	var number;
-	function numberWithCommas(x) {
-		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	}
-	switch(size) {
-		case 'verySmall':
-			if (coinToss()) {
-				sigFigs = 1;
-			}
-			else {
-				sigFigs = 2;
-			}
-			number = (numberBetween(0.1, 0.9)).toFixed(sigFigs);
-			break;
-		case 'small':
-			number = Math.floor(numberBetween(1,9));
-			break;
-		case 'large':
-			number = numberWithCommas(Math.floor(numberBetween(99,9999)));
-			break;
-		default:
-			number = '3';
-			break;
-	}
-	return number.toString();
+var numbers = {
+	someNumber: function(size) {
+		var sigFigs;
+		var number;
+		function numberWithCommas(x) {
+			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+		switch(size) {
+			case 'verySmall':
+				if (numbers.coinToss()) {
+					sigFigs = 1;
+				}
+				else {
+					sigFigs = 2;
+				}
+				number = (numbers.numberBetween(0.1, 0.9)).toFixed(sigFigs);
+				break;
+			case 'small':
+				number = Math.floor(numbers.numberBetween(1,9));
+				break;
+			case 'large':
+				number = numberWithCommas(Math.floor(numbers.numberBetween(99,9999)));
+				break;
+			default:
+				number = '3';
+				break;
+		}
+		return number.toString();
+	},
+	coinToss: function() {
+		return Math.floor(Math.random() * 2) === 1;
+	},
+	numberBetween: function(min, max) {
+		return Math.random() * (max - min) + min;
+	},
 }
 
 var camelWorths = {
 	typesOfWorth: {
 		'none': 'no',
+		'aVerySmallNumber': '0.3',
 		'barelyAny': [
 			'barely any',
 			'not very many',
-			function() {
-				return someNumber('verySmall')
-			}()
+			'scarcely any'
 			],
-		'one': 'one',
-		'some': function() {
-			return someNumber('small');
-			}(),
-		'lots': function() {
-			return someNumber('large');
-			}(),
-		'anAwfulLot': 'such an awful lot of',
+		'one': '1',
+		'some': '3',
+		'lots': '4',
+		'anAwfulLot': 'such an awful lot of'
+	},
+	refreshRandomNumbers: function() {
+		camelWorths['typesOfWorth']['aVerySmallNumber'] = numbers.someNumber('verySmall');
+		camelWorths['typesOfWorth']['some'] = numbers.someNumber('small');
+		camelWorths['typesOfWorth']['lots'] = numbers.someNumber('large');
 	},
 	randomCamelWorth: function() {
+		camelWorths.refreshRandomNumbers();
 		camelWorthType = pickKeyFromObject(camelWorths['typesOfWorth']);
 		return keepPickingValuesUntilString(camelWorths['typesOfWorth'][camelWorthType]);
 	}
@@ -86,17 +87,22 @@ var camelWorths = {
 var responses = {
 	typesOfResponse: {
 		'none': 'Go home',
+		'aVerySmallNumber': [
+			'Oh. Oh dear',
+			'It probably just takes a bit of practice',
+			'But to look at it another way, camels are fairly big',
+		],
 		'barelyAny': [
 			'Well, nevermind',
 			'But there are more important things than being worth lots of camels, I guess',
 			'It\'s really nothing to be ashamed of'
 			],
+		'one': 'What an achievement',
 		'some': [
 			'That\'s quite respectable, really',
 			'Well done',
 			'Good for you'
 			],
-		'one': 'What an achievement',
 		'lots': [
 			'Gosh',
 			'Heavens',
