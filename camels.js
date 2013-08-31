@@ -92,8 +92,12 @@ function setButton() {
 	$('button').html(button);
 }
 
-$('document').ready(function() {
+function setElements() {
 	setCamelWorth();
 	setResponse();
 	setButton();
+}
+
+$('document').ready(function() {
+	setElements();
 });
