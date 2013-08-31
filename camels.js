@@ -64,11 +64,17 @@ var camelWorths = {
 		'barelyAny': [
 			'barely any',
 			'not very many',
-			someNumber('verySmall')
+			function() {
+				return someNumber('verySmall')
+			}()
 			],
 		'one': 'one',
-		'some': someNumber('small'),
-		'lots': someNumber('large'),
+		'some': function() {
+			return someNumber('small');
+			}(),
+		'lots': function() {
+			return someNumber('large');
+			}(),
 		'anAwfulLot': 'such an awful lot of',
 	},
 	randomCamelWorth: function() {
