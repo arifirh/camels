@@ -83,7 +83,6 @@ var responses = {
 		'barelyAny': [
 			'Well, nevermind',
 			'But there are more important things than being worth lots of camels, I guess',
-			'But you still have your health',
 			'It\'s really nothing to be ashamed of'
 			],
 		'some': [
