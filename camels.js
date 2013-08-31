@@ -49,7 +49,7 @@ function someNumber(size) {
 			number = Math.floor(numberBetween(1,9));
 			break;
 		case 'large':
-			number = numberWithCommas(Math.floor(numberBetween(99,99999)));
+			number = numberWithCommas(Math.floor(numberBetween(99,9999)));
 			break;
 		default:
 			number = '3';
